@@ -11,17 +11,13 @@ services:
     volumes:
       - ./apps/www/client:/f-app
 
-  # backend:
-  #   hostname: server
-  #   restart: always
-  #   image: node:18-alpine
-  #   container_name: learn-app-backend
-  #   command: sh -c "cd /b-app && yarn start:dev"
-  #   ports:
-  #     - 3001:3001
-  #   volumes:
-  #     - ./apps/www/server:/b-app
-
-  #   environment:
-  #     - PORT=3001
-  #     - NODE_ENV=development
+  backend:
+    hostname: server
+    restart: always
+    image: node:18-alpine
+    container_name: learn-app-backend
+    command: sh -c "cd /b-app && yarn start:dev"
+    ports:
+      - 3005:3005
+    volumes:
+      - ./apps/www/api:/b-app
