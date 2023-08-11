@@ -12,7 +12,7 @@ services:
       - ./apps/www/client:/f-app
 
   backend:
-    hostname: server
+    hostname: end
     restart: always
     image: node:18-alpine
     container_name: learn-app-backend
@@ -20,4 +20,4 @@ services:
     ports:
       - 3005:3005
     volumes:
-      - ./apps/www/api:/b-app
+      - ./end:/b-app
