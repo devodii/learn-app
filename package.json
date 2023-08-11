@@ -1,0 +1,13 @@
+{
+  "name": "learn-app",
+  "version": "1.0.0",
+  "description": "Learning app for students",
+  "main": "index.js",
+  "scripts": {
+    "dev": "docker-compose up",
+    "kill": "docker-compose down --remove-orphans"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
