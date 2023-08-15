@@ -12,12 +12,28 @@ services:
       - ./apps/www/client:/f-app
 
   backend:
-    hostname: end
+    hostname: backend
     restart: always
     image: node:18-alpine
     container_name: learn-app-backend
     command: sh -c "cd /b-app && yarn start:dev"
     ports:
       - 3005:3005
+    depends_on:
+      - db
     volumes:
       - ./end:/b-app
+
+  db:
+    container_name: learn-app-db
+    hostname: db
+    restart: always
+    image: postgres:15.1
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=learnAppDB
+      - POSTGRES_DB=learn_app
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432

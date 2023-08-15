@@ -88,7 +88,7 @@ const Pricing = () => {
       <div className="container min-h-screen mx-auto px-12 lg:px-24 py-6 lg:py-12 flex flex-col gap-12">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl md:4xl lg:text-5xl font-bold text-center ">
-            Study pricing
+           Subscription Plans
           </h1>
           <div className="flex flex-col gap-0.5">
             <p className="text-xl text-center text-gray-300">
