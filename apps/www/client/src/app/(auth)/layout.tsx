@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Loigin | LearnApp",
+  title: "Auth | LearnApp",
   description: "Login to access your dashboard ",
 };
 

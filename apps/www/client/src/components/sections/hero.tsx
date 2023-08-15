@@ -16,7 +16,7 @@ export const HeroSection: FC = () => {
         </motion.h1>
         <div>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-lg md:text-xl leading-9 lg:text-2xl mb-4 max-w-3xl"
@@ -24,7 +24,7 @@ export const HeroSection: FC = () => {
             Collaborate on Projects, Share Feedback, and Learn Together
           </motion.p>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-lg md:text-xl leading-9 lg:text-2xl max-w-2xl"

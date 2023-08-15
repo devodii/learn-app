@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthHeader, Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { usePathname } from "next/navigation";
+import { RTKLayout } from "@/components/react-query";
 
 export default function RootLayout({
   children,
@@ -12,25 +13,29 @@ export default function RootLayout({
   const pathname = usePathname();
   if (["/login", "/signup"].includes(pathname)) {
     return (
-      <html lang="en">
-        <body>
-          <main>
-            <AuthHeader />
-            <div>{children}</div>
-          </main>
-        </body>
-      </html>
+      <RTKLayout>
+        <html lang="en">
+          <body>
+            <main>
+              <AuthHeader />
+              <div>{children}</div>
+            </main>
+          </body>
+        </html>
+      </RTKLayout>
     );
   }
   return (
-    <html lang="en">
-      <body>
-        <main>
-          <Header />
-          <div>{children}</div>
-          <Footer />
-        </main>
-      </body>
-    </html>
+    <RTKLayout>
+      <html lang="en">
+        <body>
+          <main>
+            <Header />
+            <div>{children}</div>
+            <Footer />
+          </main>
+        </body>
+      </html>
+    </RTKLayout>
   );
 }

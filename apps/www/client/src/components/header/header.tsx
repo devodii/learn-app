@@ -21,8 +21,11 @@ export const Header: FC = () => {
           </li>
 
           <li>
-            <Link href={'/signup'} className="bg-blue-500 text-base text-white px-4 py-2 rounded-md hover:bg-blue-600">
-              Sign Up
+            <Link
+              href={"/signup"}
+              className="bg-blue-500 text-base font-semibold text-white px-4 py-2.5 rounded-md hover:bg-blue-600"
+            >
+              Start for free
             </Link>
           </li>
         </ul>
@@ -30,6 +33,5 @@ export const Header: FC = () => {
     </header>
   );
 };
-
 
 // active-text: rgb(0, 187, 255)

@@ -1,3 +1,4 @@
+"use client";
 import { HeroSection } from "@/components/sections";
 import { HowItWorks } from "@/components/sections";
 

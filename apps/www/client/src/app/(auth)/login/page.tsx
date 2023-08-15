@@ -4,6 +4,7 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Types } from "../layout";
 import { logger } from "@/lib/logger";
+import Head from "next/head";
 
 const Page = () => {
   const {
@@ -11,20 +12,24 @@ const Page = () => {
     register,
     formState: { errors },
   } = useForm<Types.AuthCredential>();
+
   const onSubmit: SubmitHandler<Types.AuthCredential> = (data, e: any) => {
     e.preventDefault();
     logger.log(data);
   };
   return (
     <div className="min-h-screen container mx-auto px-12 lg:px-24 py-6 lg:py-12 flex flex-col gap-12">
+      <Head>
+        <title>Login | LearnApp</title>
+      </Head>
       <h2 className="block text-center font-bold text-xl sm:text-3xl lg:text-head">
         Log into LearnApp
       </h2>
 
-      <div className="flex flex-col md:flex-row gap-12 items-center">
+      <div className="flex justify-center flex-col md:flex-row gap-12 items-center">
         <form
           action=""
-          className="flex flex-col gap-6 lg:gap-8 w-full max-w-xl"
+          className="flex flex-col gap-6 lg:gap-8 w-full max-w-lg"
           noValidate
           onSubmit={handleSubmit(onSubmit)}
         >
@@ -54,7 +59,7 @@ const Page = () => {
           </div>
           <button
             role="submit"
-            className="bg-indigo-600 hover:bg-indigo-600/80 max-w-xs py-2.5 font-semibold rounded-md border-none"
+            className="bg-indigo-600 hover:bg-indigo-600/80 py-2.5 font-semibold rounded-md border-none"
           >
             Login
           </button>
@@ -69,8 +74,6 @@ const Page = () => {
             </Link>
           </p>
         </form>
-
-        <div className="border w-1/5 h-12"></div>
       </div>
     </div>
   );
