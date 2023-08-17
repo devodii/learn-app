@@ -7,6 +7,7 @@ import {
   UsersController,
   AuthController,
 } from './controllers';
+import { TransformInterceptor } from './interceptors/transformer.interceptor';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, Profile, Friendship])],
@@ -14,7 +15,7 @@ import {
     UsersService,
     ProfileService,
     AuthService,
-    { provide: 'Auth', useExisting: AuthService },
+    { provide: 'Transformer', useClass: TransformInterceptor },
   ],
   controllers: [AuthController, UsersController, ProfileController],
 })

@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth.service';
 
 @Controller('user')
 export class UsersController {
-  constructor(@Inject('Auth') private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   @Post('/signup')
   signup(@Session() session: Record<string, any>) {

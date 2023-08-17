@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Get,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -17,9 +18,9 @@ interface Credentials {
 export class AuthService {
   constructor(private userService: UsersService) {}
 
-  @Get('me')
-  public async me() {
-    return 'me';
+  @Get('whoami')
+  public async whoami() {
+    return 'whoami';
   }
 
   public async signUp(params: Credentials) {

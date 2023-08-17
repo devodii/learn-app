@@ -33,8 +33,8 @@ export class UsersService {
 
   /**
    *
-   * @param {number} email    - The user's email
-   * @returns {Promise<User>} - A promise with the user object that has the email found.
+   * @param {number} id    - The user's id
+   * @returns {Promise<User>} - A promise with the user object that has the id found.
    */
   public async findById(id: number): Promise<User> {
     if (!id) {
@@ -46,7 +46,10 @@ export class UsersService {
 
   // Connect all views ✨.
   async getUserWithProfileAndFriendships(id: number) {
-    const [user] = await this.repo.find({ where: { id }, relations: [''] });
+    const [user] = await this.repo.find({
+      where: { id },
+      relations: ['profile', 'friendship'],
+    });
     return user;
   }
 }
