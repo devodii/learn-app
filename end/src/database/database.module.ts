@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Friendship, Profile, User } from 'src/users/entities';
 
 @Module({
   imports: [
@@ -15,7 +14,8 @@ import { Friendship, Profile, User } from 'src/users/entities';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
-        entities: [User, Profile, Friendship],
+        entities: [],
+        autoLoadEntities: true, // every entity registered through forFeature() is automatically loaded
         synchronize: true,
       }),
     }),

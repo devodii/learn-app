@@ -1,41 +1,40 @@
-import {
-  BeforeInsert,
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import { Profile } from './profile.entity';
+import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'users' })
-export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @BeforeInsert()
-  customizePrimaryKey() {
-    this.id = `user_${this.id}`;
-  }
-
-  @Column({ unique: true, nullable: false })
+/**
+ * The User entity represents a registered user in the application
+ */
+export class User extends BaseEntity {
+  /**
+   * The unique email address of the user
+   */
+  @Column({ name: 'email', type: 'varchar', unique: true, nullable: false })
   email: string;
 
-  @Column({ unique: true, nullable: false })
+  /**
+   * The unique email address of the user
+   */
+  @Column({ name: 'password', type: 'varchar', nullable: false })
+  password: string;
+
+  /**
+   * The unique username of the user
+   */
+  @Column({ unique: true, type: 'varchar', nullable: true })
   username: string;
 
-  // ? map primary key on profile to user.
+  /**
+   * The profile associated with the user
+   */
   @OneToOne(() => Profile)
   @JoinColumn()
   profile: Profile;
 
-  @CreateDateColumn({ type: 'timestamptz', nullable: false })
-  createdAt: Date;
-
-  @CreateDateColumn({ type: 'timestamptz', nullable: false })
-  updtedAt: Date;
-
+  /**
+   * The timestamp when the user entity was deleted (if applicable)
+   */
   @Column({ type: 'timestamptz', nullable: true })
   deletedAt: Date | null;
 }

@@ -1,49 +1,22 @@
-import {
-  BeforeInsert,
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { User } from './user.entity';
-
-export enum STATUS {
-  IDLE = 'IDLE',
-  PENDING = 'PENDING',
-  ACCCEPTED = 'ACCEPTED',
-  DECLINED = 'DECLINED',
-}
+import { BaseEntity } from './base.entity';
+import { STATUS } from '../enums';
 
 @Entity({ name: 'friendship' })
-export class Friendship {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @BeforeInsert()
-  customizePrimaryKey() {
-    this.id = `friendship_${this.id}`;
-  }
-
+export class Friendship extends BaseEntity {
   @Column({ type: 'enum', enum: STATUS, default: STATUS.IDLE, nullable: true })
   status?: STATUS;
 
-  //   @Column({ type: 'string', nullable: true })
-  //   // TODO: Prepare list of accepted location and correct the type {string}
-  //   location?: string;
+  @Column({ type: 'varchar', nullable: true })
+  // TODO: Prepare list of accepted location and correct the type {string}
+  location?: string;
 
   @OneToOne(() => User)
-  @JoinColumn({ name: 'sender_id' })
+  @JoinColumn({ name: 'sender-id' })
   senderId: User['id'];
 
   @OneToOne(() => User)
-  @JoinColumn({ name: 'receiver' })
+  @JoinColumn({ name: 'receiver-id' })
   receiverId: User['id'];
-
-  @CreateDateColumn({ type: 'timestamptz', nullable: false })
-  createdAt: Date;
-
-  @CreateDateColumn({ type: 'timestamptz', nullable: false })
-  updtedAt: Date;
 }

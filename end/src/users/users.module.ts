@@ -1,14 +1,21 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersController } from './users.controller';
-import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Friendship, Profile, User } from './entities';
+import { UsersService, ProfileService, AuthService } from './services';
+import {
+  ProfileController,
+  UsersController,
+  AuthController,
+} from './controllers';
 
-/** Add Authservice as custom provider */
 @Module({
   imports: [TypeOrmModule.forFeature([User, Profile, Friendship])],
-  providers: [UsersService, { provide: 'User-Auth', useClass: AuthService }],
-  controllers: [UsersController],
+  providers: [
+    UsersService,
+    ProfileService,
+    AuthService,
+    { provide: 'Auth', useExisting: AuthService },
+  ],
+  controllers: [AuthController, UsersController, ProfileController],
 })
 export class UsersModule {}

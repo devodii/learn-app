@@ -88,7 +88,7 @@ const Pricing = () => {
       <div className="container min-h-screen mx-auto px-12 lg:px-24 py-6 lg:py-12 flex flex-col gap-12">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl md:4xl lg:text-5xl font-bold text-center ">
-           Subscription Plans
+            Subscription Plans
           </h1>
           <div className="flex flex-col gap-0.5">
             <p className="text-xl text-center text-gray-300">
@@ -122,7 +122,7 @@ const Pricing = () => {
               </ul>
               <Link
                 href={tier.cta.href}
-                className={`${tier.color.default} hover:${tier.color.default} text-center text-white font-semibold py-2 px-4 rounded-md`}
+                className={`${tier.color.default} text-center text-white font-semibold py-2 px-4 rounded-md`}
               >
                 <span className="text-center">{tier.cta.text}</span>
               </Link>
