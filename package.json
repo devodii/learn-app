@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "docker-compose up",
     "kill": "docker-compose down --remove-orphans",
-    "test": "cd /apps/www/client && ",
+    "test": "cd apps/www/client && yarn test ",
     "restart": "docker-compose down --remove-orphans && docker-compose up"
   },
   "keywords": [],
