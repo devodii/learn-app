@@ -11,14 +11,16 @@ import { CurrentUserInterceptor } from '../interceptors/current-user.interceptor
  * @returns The current user associated with the request.
  */
 
-export const CurrentUser = createParamDecorator((context: ExecutionContext) => {
-  const request = context.switchToHttp().getRequest();
+export const CurrentUser = createParamDecorator(
+  (data: unknown, context: ExecutionContext) => {
+    const request = context.switchToHttp().getRequest();
 
-  /**
-   * Retrieve the current user from the request's currentUser property.
-   * @see {@link CurrentUserInterceptor.checkRequest} - Interceptor where the `currentUser` property is set.
-   */
-  return request.currentUser;
-});
+    /**
+     * Retrieve the current user from the request's currentUser property.
+     * @see {@link CurrentUserInterceptor.checkRequest} - Interceptor where the `currentUser` property is set.
+     */
+    return request.currentUser;
+  },
+);
 
 export {};

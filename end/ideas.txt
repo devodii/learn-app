@@ -1,0 +1,7 @@
+IDEAS!
+
+/** Make a button on the signup header that says `My account`.
+ This helps users login without credentials dashboards.
+ This should only show if there's an authenticated user
+**/
+

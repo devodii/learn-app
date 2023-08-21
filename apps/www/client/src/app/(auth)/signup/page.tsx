@@ -1,22 +1,34 @@
 "use client";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Types } from "../layout";
+import axios from "axios";
+
 import { logger } from "@/lib/logger";
+import { User } from "@/types/user";
+
+type CredentialsDTO = Pick<User, "email" | "password">;
 
 const Page = () => {
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<Types.AuthCredential>();
+  } = useForm<CredentialsDTO>();
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<Types.AuthCredential> = (data, e: any) => {
+  const onSubmit: SubmitHandler<CredentialsDTO> = async (data, e: any) => {
     e.preventDefault();
-    logger.log(data);
+    const { data: user } = await axios.post("/api/auth/signup", data);
+    if (user?.user?.id) {
+      router.push("/dashboard");
+    }
+    logger.log(user);
   };
+
   return (
     <div className="min-h-screen container mx-auto px-12 lg:px-24 py-6 lg:py-12 flex flex-col gap-12">
       <Head>

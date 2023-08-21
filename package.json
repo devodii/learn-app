@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "docker-compose up",
-    "kill": "docker-compose down --remove-orphans"
+    "kill": "docker-compose down --remove-orphans",
+    "test": "cd /apps/www/client && ",
+    "restart": "docker-compose down --remove-orphans && docker-compose up"
   },
   "keywords": [],
   "author": "",

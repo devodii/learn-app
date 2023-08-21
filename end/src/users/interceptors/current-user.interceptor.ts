@@ -17,7 +17,7 @@ export class CurrentUserInterceptor extends BaseInterceptor {
     const { userId } = request.session;
 
     if (userId) {
-      const user = this.userService.findById(userId);
+      const user = this.userService.findOne('id', userId);
       request.currentUser = user;
 
       return !!user; // convert user return type to a boolean as expected

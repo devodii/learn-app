@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   Get,
-  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -33,7 +32,7 @@ export class AuthService {
 
   public async signIn(params: Credentials) {
     const { email, password } = params;
-    const [user] = await this.userService.findByEmail(email);
+    const user = await this.userService.findOne('email', email);
     if (!user) {
       throw new BadRequestException('Email not found');
     }
@@ -49,13 +48,11 @@ export class AuthService {
     return 'refreshToken';
   }
 
-  ///////////////////////////////////////////////////////////////////////
-
   private async findDuplicateEmail(email: string) {
     if (!email) {
       throw new NotFoundException(`Email: ${email} not found!`);
     }
-    const user = await this.userService.findByEmail(email);
+    const user = await this.userService.find(email);
     if (user.length > 0) {
       throw new BadRequestException('This Email is in use');
     }

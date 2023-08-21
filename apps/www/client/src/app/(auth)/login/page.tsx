@@ -1,22 +1,33 @@
 "use client";
 import Link from "next/link";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Types } from "../layout";
-import { logger } from "@/lib/logger";
 import Head from "next/head";
 
+import { SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
+
+import { useRouter, usePathname } from "next/navigation";
+import { User } from "@/types/user";
+import { logger } from "@/lib/logger";
+
+type Credentials = Pick<User, "email" | "password">;
 const Page = () => {
+  const router = useRouter();
+  const pathname = usePathname();
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<Types.AuthCredential>();
+  } = useForm<Credentials>();
 
-  const onSubmit: SubmitHandler<Types.AuthCredential> = (data, e: any) => {
+  const onSubmit: SubmitHandler<Credentials> = async (data, e: any) => {
     e.preventDefault();
-    logger.log(data);
+    const { data: user } = await axios.post("/api/auth/signin", data);
+    if (user?.user?.id) {
+      router.push("/dashboard");
+    }
+    logger.log(user);
   };
+
   return (
     <div className="min-h-screen container mx-auto px-12 lg:px-24 py-6 lg:py-12 flex flex-col gap-12">
       <Head>
@@ -36,7 +47,7 @@ const Page = () => {
           <div className="flex flex-col gap-2">
             <label htmlFor="email">Email</label>
             <input
-              className="bg-zinc-900 rounded-md py-2.5 px-4 border focus:outline-2 focus:outline-default-blue focus:outline-offset-[4px] transition-all duration-100"
+              className="bg-inherit rounded-md py-2.5 px-4 border focus:outline-2 focus:outline-default-blue focus:outline-offset-[4px] transition-all duration-100"
               {...register("email", { required: "Email address is required" })}
             />
             {errors.email && (
@@ -48,7 +59,7 @@ const Page = () => {
           <div className="flex flex-col gap-2">
             <label htmlFor="email">Password</label>
             <input
-              className="bg-zinc-900 rounded-md py-2.5 px-4 border focus:outline-2 focus:outline-default-blue focus:outline-offset-[4px] transition-all duration-100"
+              className="bg-inherit rounded-md py-2.5 px-4 border focus:outline-2 focus:outline-default-blue focus:outline-offset-[4px] transition-all duration-100"
               {...register("password", { required: "Password is required" })}
             />
             {errors.password && (

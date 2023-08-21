@@ -1,8 +1,10 @@
 ## Auth Routes Documentation
 
+_base route = `/auth`_
+
 #### `GET /auth/whoami`
 
-- **Description:** Retrieve the currently authenticated user's information.
+- **Description:** Retrieve the currently authenticated user's information from the `request` created by an interceptor.
 - **Method:** GET
 - **URL:** `/auth/whoami`
 - **Response:**
@@ -13,7 +15,6 @@
 - **Use case**
   - Get the currently authenticated user to determine the base route. `http://app` OR `http://app/dashboard`
   - Retrieves the username from the request to be shown on the dashboard
-  
 
 #### `POST /auth/signup`
 

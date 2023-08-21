@@ -12,10 +12,3 @@ export default function AuthLayout({
 }) {
   return <div className="text-white bg-zinc-900"> {children}</div>;
 }
-
-export namespace Types {
-  export interface AuthCredential {
-    email: string;
-    password: string;
-  }
-}

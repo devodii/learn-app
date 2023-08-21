@@ -20,6 +20,19 @@ const config: Config = {
       outlineColor: {
         "default-blue": "#2c51c3",
       },
+      backgroundColor: {
+        'app-light-gray': "#2c2c2c"
+      },
+      keyframes: {
+        "pop-out": {
+          "0%": { transform: "scale(0.95)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+      },
+
+      animation: {
+        "pop-out": "pop-out 0.3s ease-in-out",
+      },
     },
   },
   plugins: [],

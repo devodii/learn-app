@@ -6,46 +6,70 @@ import {
   Session,
   UseInterceptors,
 } from '@nestjs/common';
-import { AuthService } from '../services';
-import { UserDto } from '../dtos/create-user.dto';
-import { TransformInterceptor } from '../interceptors/transformer.interceptor';
-import { CurrentUser } from '../decorators/current-user.decorator';
-import { CurrentUserInterceptor } from '../interceptors/current-user.interceptor';
+
+// dtos
+import { CreateUserDTO, FetchUserDTO } from '../dtos';
+
+// entities
 import { User } from '../entities';
 
+// decorators
+import { CurrentUser } from '../decorators/current-user.decorator';
+
+// services
+import { AuthService } from '../services';
+
+// interceptors
+import { CurrentUserInterceptor, TransformInterceptor } from '../interceptors/';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
+
+// util
+import { serializeToDto } from 'src/lib';
+
 @Controller('auth')
-@UseInterceptors(new TransformInterceptor())
+@Serialize(FetchUserDTO)
+@UseInterceptors(TransformInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get('whoami')
   @UseInterceptors(CurrentUserInterceptor)
   async whoAmI(@CurrentUser() user: User) {
-    return user;
+    return serializeToDto(user, FetchUserDTO);
   }
 
   @Post('signup')
   async signUp(
-    @Body() userDto: UserDto,
+    @Body() userDto: CreateUserDTO,
     @Session() session: Record<string, any>,
-  ) {
+  ): Promise<FetchUserDTO> {
     const user = await this.authService.signUp(userDto);
     session.userId = user?.id;
-    return user;
+
+    // serialize the response
+    return serializeToDto(user, FetchUserDTO);
   }
 
   @Post('signin')
   async signIn(
-    @Body() userDto: UserDto,
+    @Body() userDto: CreateUserDTO,
     @Session() session: Record<string, any>,
-  ) {
+  ): Promise<FetchUserDTO> {
     const user = await this.authService.signIn(userDto);
     session.userId = user?.id;
-    return user;
+
+    // serialize the response
+    return serializeToDto(user, FetchUserDTO);
   }
 
   @Post('signout')
   signout(@Session() session: Record<string, any>) {
     session.userId = null;
+  }
+
+  @Post('refresh-token')
+  refreshToken(@Session() session: Record<string, any>) {
+    session.userId = 'refreshed token, lol. joking';
+    return 'Refresh token';
   }
 }

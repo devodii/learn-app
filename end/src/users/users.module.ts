@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Global } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Friendship, Profile, User } from './entities';
 import { UsersService, ProfileService, AuthService } from './services';
@@ -9,6 +9,7 @@ import {
 } from './controllers';
 import { TransformInterceptor } from './interceptors/transformer.interceptor';
 
+@Global()
 @Module({
   imports: [TypeOrmModule.forFeature([User, Profile, Friendship])],
   providers: [

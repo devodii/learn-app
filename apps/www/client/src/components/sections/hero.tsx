@@ -1,10 +1,20 @@
 "use client";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { FC } from "react";
+import { useQuery } from "react-query";
 
 export const HeroSection: FC = () => {
+  // const { data } = useQuery("user", async () => {
+  //   const { data } = await axios.get(`/api/user`);
+  //   return data;
+  // });
+
   return (
     <section className="flex space-x-6 min-h-screen justify-center items-center ">
+      {/* {Array.isArray(data) &&
+        data.map((data: any) => <p key={data}>{data.password}</p>)} */}
+
       <div className="container mx-auto w-full lg:w-3/5">
         <motion.h1
           initial={{ opacity: 0, x: -20 }}
@@ -46,4 +56,3 @@ export const HeroSection: FC = () => {
     </section>
   );
 };
-

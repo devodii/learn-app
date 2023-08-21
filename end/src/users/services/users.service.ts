@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities';
 import { Repository } from 'typeorm';
@@ -9,46 +9,62 @@ import { Repository } from 'typeorm';
  */
 export class UsersService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
-  /**
-   * @param  {string} email   - The user's email
-   * @param {string} password - The user's password
-   * @returns {Promise<User>} - A promise with the newly created user.
-   */
+
   public create(email: string, password: string): Promise<User> {
     const user = this.repo.create({ email, password });
     return this.repo.save(user);
   }
 
-  /**
-   *
-   * @param {string} email    - The user's email
-   * @returns {Promise<User>} - A promise with the user(s) object that has the email found.
-   */
-  public async findByEmail(email: string): Promise<User[]> {
-    if (!email) {
-      throw new NotFoundException('No email provided');
-    }
+  public async findAll() {
+    return await this.repo.find();
+  }
+
+  // Find by Email
+  public async find(email: string) {
     return await this.repo.find({ where: { email } });
   }
 
-  /**
-   *
-   * @param {number} id    - The user's id
-   * @returns {Promise<User>} - A promise with the user object that has the id found.
-   */
-  public async findById(id: number): Promise<User> {
-    if (!id) {
-      throw new NotFoundException('No ID provided');
+  public async findId(id: number) {
+    return await this.repo.find({ where: { id } });
+  }
+
+  // Find by field.
+  public async findOne(field: keyof User, value: string | number | User) {
+    const whereCondition = { [field]: value };
+    return await this.repo.findOne({ where: whereCondition });
+  }
+
+  public async delete(username: string) {
+    const user = await this.repo.findOne({ where: { username } });
+    if (!user) {
+      throw new Error('user not found');
     }
-    const user = await this.repo.findOneBy({ id });
+    return await this.repo.remove(user);
+  }
+
+  public async update(username: string, attrs: Partial<User>) {
+    const user = await this.findOne('username', username);
+    if (!user) {
+      throw new Error(`username: ${username} not found`);
+    }
+    Object.assign(user, attrs); // Merges the new values without deleting existing ones.
+    return await this.repo.save(user);
+  }
+
+  public async findUserProfile(username: string) {
+    const [user] = await this.repo.find({
+      where: { username },
+      relations: ['profile'],
+    });
+
     return user;
   }
 
   // Connect all views ✨.
-  async getUserWithProfileAndFriendships(id: number) {
+  public async getUserWithProfileAndFriendships() {
     const [user] = await this.repo.find({
-      where: { id },
-      relations: ['profile', 'friendship'],
+      // where: { id },
+      relations: ['profile'],
     });
     return user;
   }
