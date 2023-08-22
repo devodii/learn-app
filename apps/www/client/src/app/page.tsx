@@ -1,4 +1,5 @@
 "use client";
+import { render } from "@testing-library/react";
 import { HeroSection } from "@/components/sections";
 import { HowItWorks } from "@/components/sections";
 

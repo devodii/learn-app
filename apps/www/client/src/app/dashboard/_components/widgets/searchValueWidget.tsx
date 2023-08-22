@@ -1,7 +1,7 @@
-import { useQuery } from "react-query";
-import { searchUser } from "../../_lib/searcher";
-import { Modal } from "../modal/modal";
 import Link from "next/link";
+import { useQuery } from "react-query";
+import { Modal } from "../modal/modal";
+import { sleep, searchUser } from "@/dashboard/lib";
 
 interface SearchModalProps {
   searchValue: string;
@@ -30,8 +30,10 @@ const SearchList = ({ searchValue }: { searchValue: string }) => {
   const { data, isLoading, isError } = useQuery(
     ["userId", userId],
     async () => {
+      await sleep(2000); // delay request for db cost.
       return await searchUser(userId as string);
-    }
+    },
+    { staleTime: 3000 }
   );
 
   if (isLoading) {

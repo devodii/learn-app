@@ -1,5 +1,6 @@
-export interface Goals {
-  name: string;
+export interface GoalFormData {
+  title: string;
+  description: string;
+  targetDate: Date;
   category: string;
-  type: any;
 }

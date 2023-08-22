@@ -8,7 +8,7 @@ const Layout = ({ children }: Props) => {
   return (
     <div className=" min-h-screen bg-zinc-900 text-white">
       <NavigationWidget />
-      <div className="flex-1">{children}</div>
+      <div className="flex-1 ml-64 mt-20">{children}</div>
     </div>
   );
 };

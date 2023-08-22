@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "dependencies": {
     "@tanstack/react-query-devtools": "^4.33.0",
@@ -18,12 +18,14 @@
     "axios": "^1.4.0",
     "babel-preset-next": "^1.4.0",
     "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
     "framer-motion": "^10.15.1",
     "next": "13.4.13",
     "postcss": "8.4.27",
     "react": "18.2.0",
+    "react-day-picker": "^8.8.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",

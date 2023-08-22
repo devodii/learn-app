@@ -21,7 +21,12 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/components/ui": ["./src/components/ui"],
+
       "@/dashboard/*": ["./src/app/dashboard/*"],
+      "@/dashboard/component": ["./src/app/dashboard/_components"],
+      "@/dashboard/lib": ["./src/app/dashboard/_lib"],
+      "@/dashboard/widget": ["./src/app/dashboard/_components/widgets"],
       "~/": ["/public/*"]
     }
   },
