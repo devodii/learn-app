@@ -1,18 +1,42 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { GoalCategory } from './goal-category.entity';
-import { Account } from 'src/users/entities';
 
-// We want a fleded system where you should only create goals on category.
+/**
+ * We want a fledged system where you should only create goals based on existing category
+ * No need to create foreign key to account, as the category already does that for us.
+ */
 @Entity()
 export class Goal {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column('varchar')
+  @Column('varchar', { nullable: true })
   title: string;
+
+  @Column('text', { nullable: true })
+  description: string;
+
+  @Column('date', { nullable: true })
+  targetDate: Date;
+
+  @Column('text', { nullable: true })
+  comments: string[];
 
   @ManyToOne(() => GoalCategory, (category) => category.goal)
   category: GoalCategory;
+
+  @CreateDateColumn({ type: 'timestamptz', nullable: false })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz', nullable: false })
+  updatedAt: Date;
 }
 
 /**
