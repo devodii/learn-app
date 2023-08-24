@@ -16,5 +16,5 @@ Loading...
 
 
 
-### COntact 
+### Contact 
 Send me an email to <a href='mailto:emmanuelodii80@gmail.com'>emmanuelodii@gmail.com</a>
