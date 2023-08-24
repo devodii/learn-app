@@ -22,7 +22,7 @@ const Page = () => {
   const onSubmit: SubmitHandler<Credentials> = async (data, e: any) => {
     e.preventDefault();
     const { data: user } = await axios.post("/api/auth/signin", data);
-    if (user?.user?.id) {
+    if (user?.user?.accountId) {
       router.push("/dashboard");
     }
     logger.log(user);

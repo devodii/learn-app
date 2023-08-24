@@ -24,8 +24,9 @@ export const UserGreetingWidget = ({ username }: Props) => {
   };
 
   return (
-    <section className="flex gap-8 flex-col flex-1 max-w-lg">
-      <H1 value={`👋 Welcome, ${username}`} />
+    <section className="flex gap-8 flex-col flex-1 max-w-xl">
+      <H1 value={`Student Dashbord`} />
+      {username}
       <div className="relative w-full ">
         <Search ref={ref} handleSearchChange={handleSearchChange} />
         <div className="mt-4 absolute right-0 left-0 bg-zinc-900">

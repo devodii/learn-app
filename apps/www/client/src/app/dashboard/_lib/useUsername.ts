@@ -7,10 +7,10 @@ export const useUsername = () => {
     async () => {
       const {
         data: {
-          user: { id },
+          user: { accountId },
         },
       } = await axios.get("/api/auth/whoami");
-      return id;
+      return accountId;
     },
     { staleTime: 60000 }
   );
