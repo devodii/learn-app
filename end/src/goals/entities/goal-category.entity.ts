@@ -7,6 +7,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   OneToMany,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -17,12 +18,15 @@ export class GoalCategory {
   @Column('varchar')
   name: string;
 
-  @CreateDateColumn({ type: 'date', nullable: false })
+  @CreateDateColumn({ type: 'timestamptz', nullable: false })
   createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz', nullable: false })
+  updatedAt: Date;
 
   @OneToMany(() => Goal, (goal) => goal.category)
   goal: Goal[];
 
-  @ManyToOne(() => Account, (account) => account.goalCategories) // Use the correct property name
+  @ManyToOne(() => Account, (account) => account.goalCategory) // Use the correct property name
   account: Account;
 }
