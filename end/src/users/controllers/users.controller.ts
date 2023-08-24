@@ -9,8 +9,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../guards/auth.guard';
-import { UsersService } from '../services';
-import { User } from '../entities';
+import { AccountService } from '../services';
+import { Account } from '../entities';
 
 const Auth = () => {
   return UseGuards(AuthGuard);
@@ -18,9 +18,9 @@ const Auth = () => {
 
 @Controller('user')
 @Auth()
-export class UsersController {
-  constructor(private userService: UsersService) {}
-  private logger = new Logger(UsersController.name);
+export class AccountController {
+  constructor(private userService: AccountService) {}
+  private logger = new Logger(AccountController.name);
 
   @Get()
   // NOTE: This should only be accessible by an adminstrator of this application
@@ -48,7 +48,10 @@ export class UsersController {
 
   // TODO: Create an update-user DTO.
   @Patch('/:username')
-  updateUser(@Param('username') username: string, @Body() body: Partial<User>) {
+  updateUser(
+    @Param('username') username: string,
+    @Body() body: Partial<Account>,
+  ) {
     return this.userService.update(username, body);
   }
 

@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities';
+import { Account } from '../entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
-/**
- * UserService:: A root service with methods directed the user's repository.
- */
-export class UsersService {
-  constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
-  public create(email: string, password: string): Promise<User> {
+/**
+ * AccountService:: A root service with methods directed the user's repository.
+ */
+export class AccountService {
+  constructor(@InjectRepository(Account) private repo: Repository<Account>) {}
+
+  public create(email: string, password: string): Promise<Account> {
     const user = this.repo.create({ email, password });
     return this.repo.save(user);
   }
@@ -29,7 +30,7 @@ export class UsersService {
   }
 
   // Find by field.
-  public async findOne(field: keyof User, value: string | number | User) {
+  public async findOne(field: keyof Account, value: string | number | Account) {
     const whereCondition = { [field]: value };
     return await this.repo.findOne({ where: whereCondition });
   }
@@ -42,7 +43,7 @@ export class UsersService {
     return await this.repo.remove(user);
   }
 
-  public async update(username: string, attrs: Partial<User>) {
+  public async update(username: string, attrs: Partial<Account>) {
     const user = await this.findOne('username', username);
     if (!user) {
       throw new Error(`username: ${username} not found`);

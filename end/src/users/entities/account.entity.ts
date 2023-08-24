@@ -3,7 +3,7 @@ import { Profile } from './profile.entity';
 import { BaseEntity } from './base.entity';
 import { GoalCategory } from 'src/goals/entities';
 
-@Entity({ name: 'users' })
+@Entity({ name: 'account' })
 /**
  * The User entity represents a registered user in the application
  */
@@ -35,7 +35,7 @@ export class Account extends BaseEntity {
 
   // allow users to create goal category
   @OneToMany(() => GoalCategory, (goalCategory) => goalCategory.account)
-  goalCategories: GoalCategory[];
+  goalCategory: GoalCategory[];
 
   /**
    * The timestamp when the user entity was deleted (if applicable)
