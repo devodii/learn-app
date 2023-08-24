@@ -11,21 +11,20 @@ type ClassConstructor = {
   new (...args: any[]): object;
 };
 
+/**
+ * Base serializer for any controller.
+ * @usage `@Serialize(AnyDto)`
+ */
 export const Serialize = (dto: ClassConstructor) => {
   return UseInterceptors(new SerializeInterceptor(dto));
 };
 
-/**
- * Base serializer for any controller.
- * @alias Serialize
- * @usage `@Serialize(AnyDto)`
- */
 class SerializeInterceptor implements NestInterceptor {
   constructor(private dto: ClassConstructor) {}
   intercept(
     context: ExecutionContext,
     handler: CallHandler<any>,
-  ): Observable<any> | Promise<Observable<any>> {
+  ): Observable<any> {
     return handler.handle().pipe(
       map((data) => {
         if (Array.isArray(data)) {
