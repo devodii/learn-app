@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { User } from './user.entity';
+import { Account } from './account.entity';
 import { BaseEntity } from './base.entity';
 import { STATUS } from '../enums';
 
@@ -12,11 +12,11 @@ export class Friendship extends BaseEntity {
   // TODO: Prepare list of accepted location and correct the type {string}
   location?: string;
 
-  @OneToOne(() => User)
+  @OneToOne(() => Account)
   @JoinColumn({ name: 'sender-id' })
-  senderId: User['id'];
+  senderId: Account['id'];
 
-  @OneToOne(() => User)
+  @OneToOne(() => Account)
   @JoinColumn({ name: 'receiver-id' })
-  receiverId: User['id'];
+  receiverId: Account['id'];
 }

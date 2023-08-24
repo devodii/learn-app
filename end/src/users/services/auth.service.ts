@@ -5,7 +5,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { AccountService } from './users.service';
 import { hashPassword, compareHashedPasswords } from 'src/utils/password.util';
 
 interface Credentials {
@@ -15,7 +15,7 @@ interface Credentials {
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UsersService) {}
+  constructor(private userService: AccountService) {}
 
   @Get('whoami')
   public async whoami() {

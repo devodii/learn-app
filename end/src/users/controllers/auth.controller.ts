@@ -8,10 +8,10 @@ import {
 } from '@nestjs/common';
 
 // dtos
-import { CreateUserDTO, FetchUserDTO } from '../dtos';
+import { CreateUserDTO, AccountResponseDTO } from '../dtos';
 
 // entities
-import { User } from '../entities';
+import { Account } from '../entities';
 
 // decorators
 import { CurrentUser } from '../decorators/current-user.decorator';
@@ -27,39 +27,39 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { serializeToDto } from 'src/lib';
 
 @Controller('auth')
-@Serialize(FetchUserDTO)
+@Serialize(AccountResponseDTO)
 @UseInterceptors(TransformInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get('whoami')
   @UseInterceptors(CurrentUserInterceptor)
-  async whoAmI(@CurrentUser() user: User) {
-    return serializeToDto(user, FetchUserDTO);
+  async whoAmI(@CurrentUser() user: Account) {
+    return serializeToDto(user, AccountResponseDTO);
   }
 
   @Post('signup')
   async signUp(
     @Body() userDto: CreateUserDTO,
     @Session() session: Record<string, any>,
-  ): Promise<FetchUserDTO> {
+  ): Promise<AccountResponseDTO> {
     const user = await this.authService.signUp(userDto);
     session.userId = user?.id;
 
     // serialize the response
-    return serializeToDto(user, FetchUserDTO);
+    return serializeToDto(user, AccountResponseDTO);
   }
 
   @Post('signin')
   async signIn(
     @Body() userDto: CreateUserDTO,
     @Session() session: Record<string, any>,
-  ): Promise<FetchUserDTO> {
+  ): Promise<AccountResponseDTO> {
     const user = await this.authService.signIn(userDto);
     session.userId = user?.id;
 
     // serialize the response
-    return serializeToDto(user, FetchUserDTO);
+    return serializeToDto(user, AccountResponseDTO);
   }
 
   @Post('signout')
