@@ -4,12 +4,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { BaseInterceptor } from './base.interceptor';
-import { UsersService } from '../services';
+import { AccountService } from '../services';
 
 @Injectable()
 export class CurrentUserInterceptor extends BaseInterceptor {
-  constructor(private userService: UsersService) {
-    super(); // all derived class needs to call super.
+  constructor(private userService: AccountService) {
+    super(); // derived class should call super.
   }
 
   checkRequest(context: ExecutionContext): boolean {

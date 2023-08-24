@@ -43,7 +43,7 @@ export abstract class BaseInterceptor implements NestInterceptor {
       this.throwForbiddenException();
     }
 
-    // Proceed with the request if it's valid
+    // Proceed with the request no matter what.
     return handler.handle();
   }
 }
