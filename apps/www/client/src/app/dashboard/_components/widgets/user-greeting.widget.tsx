@@ -1,8 +1,8 @@
 "use client";
-import { Search } from "../search";
+import { Search } from "../date/search";
 import { H1 } from "../typography";
 import { useCallback, useRef, useState, useEffect } from "react";
-import { SearchValueContainer } from "./searchValueWidget";
+import { SearchValueContainer } from "./search-value.widget";
 
 interface Props {
   username: string;
@@ -27,7 +27,7 @@ export const UserGreetingWidget = ({ username }: Props) => {
     <section className="flex gap-8 flex-col flex-1 max-w-xl">
       <H1 value={`Student Dashbord`} />
       {username}
-      <div className="relative w-full ">
+      <div className="relative w-full max-w-xl ">
         <Search ref={ref} handleSearchChange={handleSearchChange} />
         <div className="mt-4 absolute right-0 left-0 bg-zinc-900">
           {showModal && (

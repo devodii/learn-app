@@ -1,2 +1,2 @@
-export * from "./h1";
-export * from "./h2";
+export * from "./h1.typography";
+export * from "./h2.typography";
